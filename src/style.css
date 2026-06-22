@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@layer base {
+  .font-serif {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-sans {
+    font-family: 'Montserrat', sans-serif;
+  }
+}
