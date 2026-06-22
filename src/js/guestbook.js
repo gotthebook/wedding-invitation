@@ -1,16 +1,9 @@
-/**
- * Guestbook / Wishes Module
- * Manages wish form submission, persistence, and display of wishes
- */
-
 const STORAGE_KEY = 'wedding_wishes';
 const WISHES_TO_SHOW = 2;
 
 export function initGuestbook() {
-  // Load wishes from localStorage on page load
   loadWishes();
 
-  // Handle form submission
   const wishesForm = document.getElementById('wishes-form');
   wishesForm.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -18,37 +11,27 @@ export function initGuestbook() {
     const nameInput = document.getElementById('wish-name');
     const messageInput = document.getElementById('wish-message');
 
-    // Validate inputs
     if (!nameInput.value.trim() || !messageInput.value.trim()) {
       alert('Please fill in both name and message');
       return;
     }
 
-    // Create wish object
     const wish = {
       name: nameInput.value.trim(),
       message: messageInput.value.trim(),
       timestamp: new Date().toISOString()
     };
 
-    // Get existing wishes from localStorage
     const wishes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    
-    // Add new wish to the beginning
     wishes.unshift(wish);
-    
-    // Save to localStorage
     localStorage.setItem(STORAGE_KEY, JSON.stringify(wishes));
 
-    // Clear form
     nameInput.value = '';
     messageInput.value = '';
 
-    // Reload wishes display
     loadWishes();
   });
 
-  // Handle "see more" button
   const seeMoreBtn = document.getElementById('see-more-btn');
   seeMoreBtn.addEventListener('click', function() {
     const wishCards = document.querySelectorAll('.wish-card');
@@ -62,16 +45,13 @@ function loadWishes() {
   const wishsList = document.getElementById('wishes-list');
   const seeMoreBtn = document.getElementById('see-more-btn');
 
-  // Clear existing wishes
   wishsList.innerHTML = '';
 
-  // Render wishes
   wishes.forEach((wish, index) => {
     const isHidden = index >= WISHES_TO_SHOW;
     renderWishCard(wish, wishsList, isHidden);
   });
 
-  // Show/hide "see more" button and wishes list
   if (wishes.length > WISHES_TO_SHOW) {
     seeMoreBtn.classList.remove('hidden');
     wishsList.classList.remove('hidden');

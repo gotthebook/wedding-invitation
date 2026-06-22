@@ -1,8 +1,3 @@
-/**
- * Add to Calendar Module
- * Opens a Google Calendar event creation page instead of downloading an .ics file
- */
-
 const WEDDING_DETAILS = {
   title: "Elena & Julian's Wedding",
   date: '20260801',
